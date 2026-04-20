@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <h4 class="mb-0">
+                    {% if object %}
+                        <i class="bi bi-pencil-square me-2"></i>Edit Task #{{ object.id }}
+                    {% else %}
+                        <i class="bi bi-plus-circle me-2"></i>Create New Task
+                    {% endif %}
+                </h4>
+            </div>
+
+            <div class="card-body p-4">
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+
+                    {# Using the standard form filter first to prevent 'invalid field' errors #}
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            {{ form.content|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.deadline|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3 d-flex align-items-center">
+                            {{ form.is_done|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            {{ form.tags|as_crispy_field }}
+                            <div class="form-text text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Hold <strong>Ctrl</strong> (or <strong>Cmd</strong>) to select multiple tags.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'todo:task-list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary px-5">
+                            <i class="bi bi-check-lg me-1"></i>Save Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // We target the deadline input specifically
+        const deadlineInput = document.getElementById("id_deadline");
+
+        if (deadlineInput) {
+            flatpickr(deadlineInput, {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                altInput: true,
+                altFormat: "F j, Y at h:i K",
+                allowInput: true,
+                // Ensures the picker doesn't look weird inside Bootstrap cards
+                static: true
+            });
+        }
+    });
+</script>
+{% endblock %}

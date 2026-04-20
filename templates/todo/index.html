@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3 border mt-4">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-5 fw-bold">My Productivity Hub</h1>
+        <p class="col-md-12 fs-4 text-muted">
+            Stay organized and keep track of your goals. 
+            Manage your daily tasks and organize them with custom tags.
+        </p>
+        
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-4">
+            <a href="{% url 'todo:task-list' %}" class="btn btn-primary btn-lg px-4 gap-3">
+                View Task List
+            </a>
+            <a href="{% url 'todo:tag-list' %}" class="btn btn-outline-secondary btn-lg px-4">
+                Manage Tags
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+        <div class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3>Quick Stats</h3>
+            <p>You can use this area to show how many tasks are pending or completed once you add that logic to your view.</p>
+            <a href="{% url 'todo:task-create' %}" class="btn btn-sm btn-outline-primary">Add New Task</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3>Organize</h3>
+            <p>Group your tasks by category to stay focused on what matters most right now.</p>
+            <a href="{% url 'todo:tag-create' %}" class="btn btn-sm btn-outline-secondary">Add New Tag</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
